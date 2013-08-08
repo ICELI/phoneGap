@@ -1,0 +1,97 @@
+<!DOCTYPE HTML>
+<html>
+<head>
+	<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+	<meta name="viewport" id="viewport" content="width=device-width, initial-scale=1, user-scalable=no" />
+	<meta name="apple-mobile-web-app-capable" content="yes">
+	<meta name="apple-touch-fullscreen" content="yes">
+	<meta name="apple-mobile-web-app-status-bar-style" content="black">
+	<title>手机demo活动详细页</title>
+	<link type="text/css" rel="stylesheet" href="css/mobile_web_style.css?0417" />
+	<!--<link type="text/css" rel="stylesheet" href="css/global.css" />-->
+	<script type="text/javascript" src="js/zepto.min.js"></script>
+    <script type="text/javascript" src="js/mobile_web_script.js?0513"></script> </head>  
+<body>  
+
+<section id="calendarPage">
+    <header>
+        <div class="top">
+            <a  href="room_order.html" class="previous_btn">返回</a><h2>选择日期</h2> 
+        </div>
+    </header>
+    <section class="start_date">
+        <div id="date_list"></div>  
+        <script type="text/javascript">
+        function fDrawCal(y,m) {  
+        var temp_d  = new Date(y,m-1,1);  
+        var first_d = temp_d.getDay(); //返回本月1号是星期几  
+            temp_d  = new Date(y, m, 0);  
+        var all_d   = temp_d.getDate();//返回本月共有多少天,同时避免复杂的判断润年不润年
+        var html,i_d;  
+        html="<h2>"+y+"年"+m+"月</h2>"; //html=y+"年"+m+"月"+d_d+"日";   
+        html+="<table border='0' cellpadding='0' cellspacing='0' bgcolor='#f8f8f8'><tr>"  
+        html+="<td class='td_xq'>日</td>";  
+        html+="<td class='td_xq'>一</td>";  
+        html+="<td class='td_xq'>二</td>";  
+        html+="<td class='td_xq'>三</td>";  
+        html+="<td class='td_xq'>四</td>";  
+        html+="<td class='td_xq'>五</td>";  
+        html+="<td class='td_xq'>六</td></tr>";  
+        html+="<tr>";  
+        for(var i=1;i<=42;i++){  
+            if(first_d<i&&i<=(all_d+first_d)){  
+                i_d=i-first_d;//显示出几号
+                setTime = new Date(y,m-1,i_d)
+                weekday = new Array("日","一","二","三","四","五","六")  
+                html+="<td";  
+                if (y==d_y&&m==d_m&&d_d==i_d){//日历中为当天  
+                    html+=" class='td_hao' onclick='show(this)' style='color:red' date-data='"+y+"年"+m+"月"+i_d+"日' week-data='星期"+weekday[setTime.getDay()]+"'>今天</td>";  
+                }else if (m<=d_m&&d_d>i_d){  
+                    html+=" class='td_hao gray'>"+i_d+"</td>";  
+                }else{
+                       html+=" onclick='show(this)' class='td_hao' date-data='"+y+"年"+m+"月"+i_d+"日' week-data='星期"+weekday[setTime.getDay()]+"'>"+i_d+"</td>";  
+                    }  
+            }else{  
+                html+="<td class='gray'>&nbsp;</td>";  
+            }  
+            if(i%7==0&&i<42){  
+                html+="</tr><tr>";  
+            }  
+        }  
+        html+="</tr></table>";  
+        var div = document.createElement('div');
+        div.className = 'dateWrap';
+        div.innerHTML = html;
+        var trs = div.getElementsByTagName('tr'),
+            trL = trs.length,
+            tr = trs[trL-1];
+        if(tr.getElementsByTagName('td')[0].innerHTML === '&nbsp;') {
+            tr.parentNode.removeChild(tr);
+        }
+        
+        document.getElementById("date_list").appendChild(div);  
+        }  
+          
+        //点击函数  
+        function show(obj){  
+            var date_data = obj.getAttribute('date-data'); 
+            var week_data = obj.getAttribute('week-data'); 		
+            //点击后获取时间,如果日历在月视图中不作为,如果在日视图对应跳到对应的日期,如果是在周视图视情况判断  
+            alert(date_data+" "+week_data);  
+        }  
+          
+        var d_Date = new Date();            //系统时间对象  
+        var d_y = d_Date.getFullYear();     //完整的年份,千万不要使用getYear,firfox不支持  
+        var d_m = d_Date.getMonth()+1;      //注意获取的月份比实现的小1  
+        var d_d = d_Date.getDate();  
+        fDrawCal(d_y,d_m);
+        fDrawCal(d_y,d_m+1);
+        fDrawCal(d_y,d_m+2); 
+        fDrawCal(d_y,d_m+3); 
+        fDrawCal(d_y,d_m+4); 
+        </script>  
+    
+    </section> 
+</section>
+</body> 
+</html> 

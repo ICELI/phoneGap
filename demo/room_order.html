@@ -1,0 +1,202 @@
+<!DOCTYPE HTML>
+<html>
+<head>
+	<meta http-equiv="content-type" content="text/html; charset=utf-8" />
+	<meta name="viewport" id="viewport" content="width=device-width, initial-scale=1, user-scalable=no" />
+	<meta name="apple-mobile-web-app-capable" content="yes">
+	<meta name="apple-touch-fullscreen" content="yes">
+	<meta name="apple-mobile-web-app-status-bar-style" content="black">
+	<title>订单填写</title>
+	<link type="text/css" rel="stylesheet" href="css/mobile_web_style.css?0417" />
+	<!--<link type="text/css" rel="stylesheet" href="css/global.css" />-->
+	<script type="text/javascript" src="js/zepto.min.js"></script>
+    <script type="text/javascript" src="js/mobile_web_script.js?0513"></script> </head>  
+ 
+<body>  
+<section id="order_page">
+    <header>
+        <div class="top">
+            <a href="5.html" class="previous_btn">返回</a><h2>订单填写</h2>    
+        </div>
+    </header>
+    <section id="content">
+        <nav class="nav_bar">
+            <h2><b class="fl w110">房间名称：</b><span class="pro_name">标准单间</span></h2>
+        </nav>
+        <section class="pro_order">
+            <ul class="list">
+                <li><span>入住日期：</span><div class="show_calendar_Page" id="sContent"><i id="start_date"></i> <i id="start_week"></i><b class="arrow_r fr va_middle"></b></div></li>
+                <li><span>离店日期：</span><div class="show_calendar_Page" id="eContent"><i id="end_date"></i> <i id="end_week"></i><b class="arrow_r fr va_middle"></b></div></li>
+                <li><span>房&emsp;&emsp;数：</span><div><a href="javascript:;" class="minus_btn"> - </a> <input type="text" value="1" readonly class="order_number list_input w35 ta_center"> <a href="javascript:;" class="plus_btn"> + </a>  </div></li>
+                <li><span class="w100">房间保留至：</span><div class="show_arrive_time_page"><i class="arriveTime">18：00之前</i><b class="arrow_r fr va_middle"></b></div></li>
+            </ul>
+            <ul class="list">
+                <li><span>联&ensp;系&ensp;人：</span><div><input type="text" maxlength="20" name="book_contact" class="list_input"></div>
+                <li><span>移动电话：</span><div><input type="tel" maxlength="11" name="book_phone" class="list_input" placeholder="用于接收预订短信确认"></div>
+            </ul>
+            <ul class="list">
+                <li><span>金&emsp;&emsp;额：</span><div>500元</div>
+            </ul>
+            <div class="apply_box"><a href="javascript:;" class="order_btn">确&emsp;定</a></div>
+        </section>
+    </section> 
+</section>
+
+<section class="slider_page" id="arrive_time_page">
+    <header>
+        <div class="top">
+            <a  href="javascript:;" class="previous_btn">返回</a><h2>房间保留至</h2> 
+        </div>
+    </header>
+    <section class="arrive_time">
+        <ul class="arrive_time_list">
+            <li><a href="javascript:;" >14：00之前</a></li>
+            <li><a href="javascript:;" >15：00之前</a></li>
+            <li><a href="javascript:;" >16：00之前</a></li>
+            <li><a href="javascript:;" >17：00之前</a></li>
+            <li><a href="javascript:;" >18：00之前</a></li>
+            <li><a href="javascript:;" >19：00之前</a></li>
+            <li><a href="javascript:;" >20：00之前</a></li>
+            <li><a href="javascript:;" >21：00之前</a></li>
+            <li><a href="javascript:;" >22：00之前</a></li>
+            <li><a href="javascript:;" >23：00之前</a></li>
+            <li><a href="javascript:;" >24：00之前</a></li>
+            <li><a href="javascript:;" >次日1：00之前</a></li>
+            <li><a href="javascript:;" >次日2：00之前</a></li>
+            <li><a href="javascript:;" >次日3：00之前</a></li>
+            <li><a href="javascript:;" >次日6：00之前</a></li>
+        </ul>
+    </section>
+</section>
+
+<section class="slider_page" id="calendar_Page">
+    <header>
+        <div class="top">
+            <a href="javascript:;" class="previous_btn">返回</a><h2>选择日期</h2> 
+        </div>
+    </header>
+    <section class="start_date">
+        <div id="date_list"></div>  
+        <script type="text/javascript">
+        function fDrawCal(y,m) {  
+        var temp_d  = new Date(y,m-1,1);  
+        var first_d = temp_d.getDay(); //返回本月1号是星期几
+            temp_d  = new Date(y, m, 0);  
+        var all_d   = temp_d.getDate();//返回本月共有多少天,同时避免复杂的判断润年不润年
+        var html,i_d;  
+        html="<h2>"+y+"年"+m+"月</h2>"; //html=y+"年"+m+"月"+d_d+"日";   
+        html+="<table border='0' cellpadding='0' cellspacing='0' bgcolor='#f8f8f8'><tr>"  
+        html+="<td class='td_xq'>日</td>";  
+        html+="<td class='td_xq'>一</td>";  
+        html+="<td class='td_xq'>二</td>";  
+        html+="<td class='td_xq'>三</td>";  
+        html+="<td class='td_xq'>四</td>";  
+        html+="<td class='td_xq'>五</td>";  
+        html+="<td class='td_xq'>六</td></tr>";  
+        html+="<tr>";  
+		if(m<10){
+		var m = "0"+m;
+		}
+        for(var i=1;i<=42;i++){  
+            if(first_d<i&&i<=(all_d+first_d)){  
+                i_d = i-first_d;//显示出几号
+				i_td = i_d-1;
+				if(i_d<10){
+					var i_d0 = "0"+i_d;
+				}else {
+					var i_d0 = i_d;
+					}
+                setTime = new Date(y,m-1,i_d);
+                weekday = new Array("日","一","二","三","四","五","六");
+                html+="<td";  
+                if (y==d_y&&m==d_m&&d_d==i_d){//日历中为当天  
+                    html+=" class='td_hao today' onclick='show(this);' style='color:red' date-data='"+y+"-"+m+"-"+i_d0+"' week-data='星期"+weekday[setTime.getDay()]+"'>今天</td>";  
+                }else if (y==d_y&&m==d_m&&d_d==i_td){  
+                    html+=" class='td_hao tomorrow' onclick='show(this);' date-data='"+y+"-"+m+"-"+i_d0+"' week-data='星期"+weekday[setTime.getDay()]+"'>"+i_d+"</td>";  
+                }else if (m<=d_m&&d_d>i_d){  
+                    html+=" class='td_hao gray'>"+i_d+"</td>";  
+                }else{
+                    html+=" onclick='show(this);' class='td_hao' date-data='"+y+"-"+m+"-"+i_d0+"' week-data='星期"+weekday[setTime.getDay()]+"'>"+i_d+"</td>";  
+                    }  
+            }else{  
+                html+="<td class='gray'>&nbsp;</td>";  
+            }  
+            if(i%7==0&&i<42){  
+                html+="</tr><tr>";  
+            }  
+        }  
+        html+="</tr></table>";  
+        var div = document.createElement('div');
+        div.className = 'dateWrap';
+        div.innerHTML = html;
+        var trs = div.getElementsByTagName('tr'),
+            trL = trs.length,
+            tr = trs[trL-1];
+        if(tr.getElementsByTagName('td')[0].innerHTML === '&nbsp;') {
+            tr.parentNode.removeChild(tr);
+        }
+        document.getElementById("date_list").appendChild(div);  
+        }  
+        //点击函数  
+        function show(obj){  
+            var date_data = obj.getAttribute('date-data'); 
+            var week_data = obj.getAttribute('week-data'); 
+			var dd = date_data.split("-");
+			var dd_day = new Date(dd[0],dd[1]-1,dd[2]);
+			var next_date = new Date(dd_day.getFullYear(),dd_day.getMonth(),dd_day.getDate()+1);
+			var next_month = (next_date.getMonth()+1) < 10 ? "0"+(next_date.getMonth()+1) : next_date.getMonth()+1;
+			var next_day = next_date.getDate() < 10 ? "0"+next_date.getDate() : next_date.getDate();
+            //点击后获取时间,如果日历在月视图中不作为,如果在日视图对应跳到对应的日期,如果是在周视图视情况判断
+			if($("#calendar_Page").attr("date-type") == "sContent"){
+				var ed = $("#end_date").html().split("-");	
+				$("#start_date").html(date_data);
+				$("#start_week").html(week_data);
+				if((dd[1] > ed[1])||((dd[1] == ed[1])&&(dd[2] = ed[2] || dd[2] > ed[2]))){
+					$("#end_date").html(next_date.getFullYear()+"-"+next_month+"-"+next_day);
+					$("#end_week").html("星期"+weekday[next_date.getDay()]);
+				}
+			}else if($("#calendar_Page").attr("date-type") == "eContent"){					
+				$("#end_date").html(date_data);
+				$("#end_week").html(week_data);
+			}else if($("#calendar_Page").attr("date-type") == "pContent"){					
+				$("#proo_date").html(date_data);
+				$("#proo_week").html(week_data);
+				}
+			//页面还原	
+			window.scrollTo(0,1);
+			var w = $("body").width();
+			$("#order_page").css({"display":"block"});
+			$("#calendar_Page").animate({translate3d:w+"px,0,0"},300,'ease-out',function(){
+				$("#order_page").css({"display":"block"});//防止误点两次导致页面空白
+				$("#calendar_Page").css({"display":"none","-webkit-transform":""});
+				});
+        }        
+        var d_Date = new Date();            //系统时间对象  
+        var d_y = d_Date.getFullYear();     //完整的年份,千万不要使用getYear,firfox不支持  
+        var d_m = d_Date.getMonth()+1;      //注意获取的月份比实现的小1  
+        var d_d = d_Date.getDate(); 
+		//n个月 i < n
+		for(var i=0;i<5;i++){
+			fDrawCal(d_y,d_m+i);
+			} 
+		//默认显示时间	
+		$("#start_date").html($(".today").attr("date-data"));
+		$("#start_week").html($(".today").attr("week-data"));
+		$("#end_date").html($(".tomorrow").attr("date-data"));
+		$("#end_week").html($(".tomorrow").attr("week-data"));
+		$("#proo_date").html($(".today").attr("date-data"));
+		$("#proo_week").html($(".today").attr("week-data"));
+		//离开页面提示
+		 window.onbeforeunload = function(){
+			var name = $("input[name=book_contact]").val();
+			var phone = $("input[name=book_phone]").val();
+			if(name != "" || phone != ""){
+				return "订单尚未提交，确认返回？";
+			}
+		}
+        </script>  
+    
+    </section> 
+</section>
+</body> 
+</html> 
